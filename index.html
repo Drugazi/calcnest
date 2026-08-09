@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CalcNest — Free Calculators for Everyday Life</title>
+<meta name="description" content="Fast, free calculators for salary, tips, percentages, debt, savings, age and dates.">
+<style>
+:root{--bg:#f7f8fc;--card:#fff;--ink:#182033;--muted:#667085;--accent:#5b5bd6;--line:#e7e9f2}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.nav{max-width:1100px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:24px;font-weight:800}.logo span{color:var(--accent)}
+main{max-width:1100px;margin:auto;padding:48px 20px}.hero{text-align:center;max-width:720px;margin:0 auto 42px}.hero h1{font-size:clamp(36px,6vw,60px);line-height:1.02;margin:0 0 16px}.hero p{font-size:18px;color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 4px 18px #18203308}.card h2{font-size:19px;margin:0 0 8px}.card p{color:var(--muted);min-height:44px}.btn{display:inline-block;border:0;border-radius:10px;background:var(--accent);color:#fff;padding:11px 15px;font-weight:700;cursor:pointer}
+.tool{display:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin:28px auto;max-width:700px}.tool.active{display:block}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-weight:700;font-size:14px;display:block;margin:12px 0 6px}input{width:100%;padding:12px;border:1px solid #d8dbea;border-radius:10px;font-size:16px}.result{margin-top:18px;padding:18px;border-radius:12px;background:#f0f0ff;font-size:20px;font-weight:800}.back{background:#eef0f7;color:var(--ink);margin-right:8px}
+footer{text-align:center;color:var(--muted);padding:40px 20px}
+@media(max-width:600px){.row{grid-template-columns:1fr}.hero{margin-bottom:28px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">Calc<span>Nest</span></div><a href="#tools">Calculators</a></div></header>
+<main>
+<section class="hero">
+<h1>Numbers made simple.</h1>
+<p>Fast, free calculators for money and everyday decisions. No signup required.</p>
+</section>
+
+<div id="tools" class="grid">
+<div class="card"><h2>Salary ↔ Hourly</h2><p>Convert annual salary to an hourly rate and back.</p><button class="btn" onclick="show('salary')">Open</button></div>
+<div class="card"><h2>Tip Calculator</h2><p>Split a bill and calculate a tip in seconds.</p><button class="btn" onclick="show('tip')">Open</button></div>
+<div class="card"><h2>Percentage</h2><p>Find percentages, increases and decreases.</p><button class="btn" onclick="show('percent')">Open</button></div>
+<div class="card"><h2>Debt Payoff</h2><p>Estimate your monthly payment and payoff time.</p><button class="btn" onclick="show('debt')">Open</button></div>
+<div class="card"><h2>Savings</h2><p>Estimate how savings can grow with monthly contributions.</p><button class="btn" onclick="show('savings')">Open</button></div>
+<div class="card"><h2>Age</h2><p>Calculate your exact age from your birthday.</p><button class="btn" onclick="show('age')">Open</button></div>
+<div class="card"><h2>Date Difference</h2><p>Find the number of days between two dates.</p><button class="btn" onclick="show('date')">Open</button></div>
+</div>
+
+<div id="salary" class="tool"><button class="btn back" onclick="hideAll()">← Back</button><h2>Salary ↔ Hourly Calculator</h2><label>Annual salary ($)</label><input id="sal" type="number" placeholder="60000"><label>Hours per week</label><input id="hrs" type="number" value="40"><label>Weeks per year</label><input id="weeks" type="number" value="52"><button class="btn" onclick="calcSalary()">Calculate</button><div id="salout" class="result"></div></div>
+
+<div id="tip" class="tool"><button class="btn back" onclick="hideAll()">← Back</button><h2>Tip Calculator</h2><label>Bill ($)</label><input id="bill" type="number" placeholder="80"><label>Tip (%)</label><input id="tipPct" type="number" value="20"><label>People</label><input id="people" type="number" value="1"><button class="btn" onclick="calcTip()">Calculate</button><div id="tipout" class="result"></div></div>
+
+<div id="percent" class="tool"><button class="btn back" onclick="hideAll()">← Back</button><h2>Percentage Calculator</h2><label>What is X% of Y?</label><div class="row"><input id="px" type="number" placeholder="20"><input id="py" type="number" placeholder="150"></div><button class="btn" onclick="calcPercent()">Calculate</button><div id="pout" class="result"></div></div>
+
+<div id="debt" class="tool"><button class="btn back" onclick="hideAll()">← Back</button><h2>Debt Payoff Calculator</h2><label>Balance ($)</label><input id="dbal" type="number" placeholder="5000"><label>Annual interest (%)</label><input id="drate" type="number" value="20"><label>Monthly payment ($)</label><input id="dpay" type="number" value="200"><button class="btn" onclick="calcDebt()">Calculate</button><div id="dout" class="result"></div></div>
+
+<div id="savings" class="tool"><button class="btn back" onclick="hideAll()">← Back</button><h2>Savings Growth Calculator</h2><label>Starting balance ($)</label><input id="start" type="number" value="1000"><label>Monthly contribution ($)</label><input id="contrib" type="number" value="200"><label>Annual return (%)</label><input id="ret" type="number" value="5"><label>Years</label><input id="syears" type="number" value="10"><button class="btn" onclick="calcSavings()">Calculate</button><div id="sout" class="result"></div></div>
+
+<div id="age" class="tool"><button class="btn back" onclick="hideAll()">← Back</button><h2>Age Calculator</h2><label>Birth date</label><input id="dob" type="date"><button class="btn" onclick="calcAge()">Calculate</button><div id="aout" class="result"></div></div>
+
+<div id="date" class="tool"><button class="btn back" onclick="hideAll()">← Back</button><h2>Date Difference</h2><div class="row"><div><label>Start date</label><input id="date1" type="date"></div><div><label>End date</label><input id="date2" type="date"></div></div><button class="btn" onclick="calcDate()">Calculate</button><div id="dateout" class="result"></div></div>
+</main>
+<footer>© 2026 CalcNest · Free tools for everyday life</footer>
+<script>
+const $=id=>document.getElementById(id);
+function show(id){hideAll();$(id).classList.add('active');$(id).scrollIntoView({behavior:'smooth'})}
+function hideAll(){document.querySelectorAll('.tool').forEach(x=>x.classList.remove('active'))}
+function money(x){return '$'+x.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function calcSalary(){let s=+$('sal').value,h=+$('hrs').value,w=+$('weeks').value;$('salout').textContent=money(s/(h*w))+' per hour'}
+function calcTip(){let b=+$('bill').value,t=+$('tipPct').value,p=+$('people').value;let tip=b*t/100,total=b+tip;$('tipout').innerHTML=`Tip: ${money(tip)} · Total: ${money(total)} · Per person: ${money(total/p)}`}
+function calcPercent(){$('pout').textContent=($('px').value*$('py').value/100).toLocaleString(undefined,{maximumFractionDigits:2})}
+function calcDebt(){let b=+$('dbal').value,r=+$('drate').value/1200,p=+$('dpay').value;if(r&&p<=b*r){$('dout').textContent='Payment is too low to pay off this debt.';return}let n=r?Math.log(p/(p-b*r))/Math.log(1+r):b/p;$('dout').textContent=`Estimated payoff: ${Math.ceil(n)} months (${(n/12).toFixed(1)} years)`}
+function calcSavings(){let bal=+$('start').value,c=+$('contrib').value,r=+$('ret').value/1200,n=+$('syears').value*12;for(let i=0;i<n;i++)bal=bal*(1+r)+c;$('sout').textContent='Estimated balance: '+money(bal)}
+function calcAge(){let d=new Date($('dob').value),now=new Date();if(isNaN(d))return;$('aout').textContent=`You are ${now.getFullYear()-d.getFullYear()-((now.getMonth()<d.getMonth()||now.getMonth()==d.getMonth()&&now.getDate()<d.getDate())?1:0)} years old.`}
+function calcDate(){let a=new Date($('date1').value),b=new Date($('date2').value);if(isNaN(a)||isNaN(b))return;$('dateout').textContent=Math.round(Math.abs(b-a)/86400000)+' days'}
+</script>
+</body></html>
