@@ -54,7 +54,7 @@ const $=id=>document.getElementById(id);
 function show(id){hideAll();$(id).classList.add('active');$(id).scrollIntoView({behavior:'smooth'})}
 function hideAll(){document.querySelectorAll('.tool').forEach(x=>x.classList.remove('active'))}
 function money(x){return '$'+x.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
-function calcSalary(){let s=+$('sal').value,h=+$('hrs').value,w=+$('weeks').value;$('salout').textContent=money(s/(h*w))+' per hour'}
+function calcSalary(){let s=+$('sal').value,h=+$('hrs').value,w=+$('weeks').value;$('salout').textContent=money(s/(h*w))+' per hour before taxes'}
 function calcTip(){let b=+$('bill').value,t=+$('tipPct').value,p=+$('people').value;let tip=b*t/100,total=b+tip;$('tipout').innerHTML=`Tip: ${money(tip)} · Total: ${money(total)} · Per person: ${money(total/p)}`}
 function calcPercent(){$('pout').textContent=($('px').value*$('py').value/100).toLocaleString(undefined,{maximumFractionDigits:2})}
 function calcDebt(){let b=+$('dbal').value,r=+$('drate').value/1200,p=+$('dpay').value;if(r&&p<=b*r){$('dout').textContent='Payment is too low to pay off this debt.';return}let n=r?Math.log(p/(p-b*r))/Math.log(1+r):b/p;$('dout').textContent=`Estimated payoff: ${Math.ceil(n)} months (${(n/12).toFixed(1)} years)`}
